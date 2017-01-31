@@ -23,7 +23,7 @@ class TwitterClientApp extends Component {
     }
 
     onLoad = async () => {
-        this.setState({ result: 'Loading, please wait...' });
+        this.setState({ dataSource: this.state.dataSource.cloneWithRows([])});
 
         const response = await
             fetch('https://twitter-tags-server.cfapps.io/v1/tweets', {
@@ -31,13 +31,18 @@ class TwitterClientApp extends Component {
             });
 
         const result = await response.json();
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.text !== r2.text});
-        this.setState({ dataSource: ds.cloneWithRows(result) });
+        const data = { dataSource: this.state.dataSource.cloneWithRows(result)};
+        this.setState(data);
     };
 
     render() {
         return (
             <View style={{flex: 1, paddingTop: 22}}>
+                <Button
+                    onPress={this.onLoad.bind(this)}
+                    title="Refresh"
+                    color="#004bb4"
+                />
                 <ListView
                     dataSource={this.state.dataSource}
                     renderRow={(rowData) => <TweetView tweet={rowData}/>}

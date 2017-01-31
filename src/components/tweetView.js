@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {ListView, StyleSheet, Text, View} from "react-native";
+import {ListView, StyleSheet, Text, View, Image} from "react-native";
 
 export default class TweetView extends Component {
     constructor(props) {
@@ -12,9 +12,9 @@ export default class TweetView extends Component {
     render() {
         return (
             <View style={styles.row}>
-                <View style={styles.iconContainer}>
-                    <Text>AA</Text>
-                </View>
+                <Image style={styles.iconContainer}
+                    source={{uri: this.state.tweet.user.profile_background_image_url_https}}
+                />
                 <View style={styles.title}>
                     <Text>{this.state.tweet.text}</Text>
                 </View>
@@ -41,10 +41,10 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
         alignItems: 'center',
-        backgroundColor: '#feb401',
-        borderColor: '#feaf12',
+        backgroundColor: '#004bb4',
+        borderColor: '#004bb4',
         borderRadius: 25,
-        borderWidth: 1,
+        borderWidth: 0.5,
         justifyContent: 'center',
         height: 50,
         width: 50,
